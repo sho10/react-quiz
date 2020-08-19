@@ -57,8 +57,13 @@ const App = () => {
     }
   };
   const nextQuestion = () => {
-    //move on to next question
-
+    //move on to next question if not the last question
+    const nextQuestion = number + 1;
+    if (nextQuestion === TOTAL_QUESTIONS) {
+      setGameOver(true);
+    } else {
+      setNumber(nextQuestion);
+    }
   };
   return (
     <div className = "App">
