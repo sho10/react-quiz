@@ -3,12 +3,12 @@ import { fetchQuizQuestions } from './API';
 import QuestionCard from './components/QuestionCard';
 import {QuestionState, Difficulty} from './API';
 
-type AnswerObject = {
+export type AnswerObject = {
   question: string;
   answer: string;
   correct: boolean;
   correctAnswer: string;
-}
+};
 
 const TOTAL_QUESTIONS = 10;
 
@@ -20,7 +20,7 @@ const App = () => {
   const [score, setScore] = useState(0);
   const [gameOver, setGameOver] = useState(true);
 
-  console.log(fetchQuizQuestions(TOTAL_QUESTIONS, Difficulty.EASY));
+  //console.log(fetchQuizQuestions(TOTAL_QUESTIONS, Difficulty.EASY));
 
   const startTrivia = async () => {
     setLoading(true);
@@ -56,19 +56,21 @@ const App = () => {
       ) :null }
       {!gameOver ? <p className="score">Score:</p> : null}
       {loading ? <p>Loading Questions...</p> : null}
-      {/*<QuestionCard
-        questionNr={number+1}
-        totalQuestions={TOTAL_QUESTIONS}
-        question={questions[number].question}
-        answers={questions[number].answers}
-        userAnswer={userAnswers ? userAnswers[number] : undefined}
-        callback={checkAnswer}
-      />*/}
+      {!loading && !gameOver && (
+        <QuestionCard
+          questionNr={number+1}
+          totalQuestions={TOTAL_QUESTIONS}
+          question={questions[number].question}
+          answers={questions[number].answers}
+          userAnswer={userAnswers ? userAnswers[number] : undefined}
+          callback={checkAnswer}
+        />
+      )}
       <button className="next" onClick={nextQuestion}>
         Next Question
       </button>
     </div>
   )
-}
+};
 
 export default App;
